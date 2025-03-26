@@ -1,4 +1,4 @@
-package com.navarrodev.com.navarrodev.alugueis
+package alugueis
 
 class Jogo(val titulo: String,val capa: String) {
 

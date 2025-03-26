@@ -1,4 +1,4 @@
-package com.navarrodev.com.navarrodev.alugueis
+package alugueis
 
 data class InfoJogoApi(val info: InfoApiShark) {
 

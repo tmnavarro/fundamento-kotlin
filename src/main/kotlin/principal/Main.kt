@@ -1,12 +1,7 @@
-package com.navarrodev.principal
+package principal
 
-import com.google.gson.Gson
-import com.navarrodev.alugueis.InfoJogoApi
-import com.navarrodev.alugueis.Jogo
-import java.net.URI
-import java.net.http.HttpClient
-import java.net.http.HttpRequest
-import java.net.http.HttpResponse.BodyHandlers
+import alugueis.Jogo
+import servicos.ConsumoApi
 import java.util.Scanner
 
 fun main() {
@@ -14,36 +9,13 @@ fun main() {
     println("Digite o código do jogo: ")
     val busca = leitura.nextLine()
 
-    val uri = "https://www.cheapshark.com/api/1.0/games?id=$busca"
-
-    val client: HttpClient = HttpClient.newHttpClient()
-    val request = HttpRequest.newBuilder()
-        .uri(URI.create(uri))
-        .build()
-    val response = client
-        .send(request, BodyHandlers.ofString())
-
-    val json = response.body()
-
-
-
-    val gson = Gson()
-    val infoJogo = gson.fromJson(json, InfoJogoApi::class.java)
-//    try {
-//
-//        val jogo1 = Jogo(infoJogo.info.title, infoJogo.info.thumb)
-//
-//        println(jogo1)
-//    } catch (ex: NullPointerException) {
-//        println("Jogo não encontrado")
-//    }
-
+    val infoJogo = ConsumoApi().buscaJogo(busca)
+    println(infoJogo)
     var jogo1: Jogo? = null
 
     val resultado = runCatching {
         Jogo(infoJogo.info.title, infoJogo.info.thumb)
 
-        println(jogo1)
     }
 
     resultado.onFailure {
@@ -51,11 +23,7 @@ fun main() {
     }
 
     resultado.onSuccess {
-        println("Jogo não encontrado")
+        println(jogo1)
     }
-
-
-
-
 
 }
