@@ -1,0 +1,43 @@
+classDiagram
+    class Gamer {
+        -nome: String
+        -email: String
+        -dataNascimento: String
+        -usuario: String
+        -jogos: List<Jogo>
+        +criarGamer(scanner: Scanner): Gamer
+    }
+
+    class InfoGamerJson {
+        +nome: String
+        +email: String
+        +dataNascimento: String
+        +usuario: String
+        +toString(): String
+    }
+
+    class ConsumoApi {
+        +requestData(uri: String): String
+        +buscaJogo(id: String): InfoJogoApi
+        +buscaGamers(): List<Gamer>
+    }
+
+    class Jogo {
+        -titulo: String
+        -capa: String
+    }
+
+    class InfoJogoApi {
+        +info: InfoJogo
+        +deals: List<Deal>
+    }
+
+    class GamerExtension {
+        +criaGamer(): Gamer
+    }
+
+    InfoGamerJson ..> Gamer : converte via extension
+    ConsumoApi --> InfoJogoApi : busca
+    ConsumoApi --> InfoGamerJson : busca
+    Gamer --> Jogo : possui
+    InfoJogoApi --> Jogo : converte

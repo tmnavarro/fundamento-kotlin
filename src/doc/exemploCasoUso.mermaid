@@ -1,0 +1,9 @@
+graph TD
+    subgraph Sistema de Aluguel de Jogos
+        A([Gamer]) -->|Criar Perfil| B[Cadastrar Dados]
+        A -->|Buscar Jogos| C[Pesquisar por ID]
+        A -->|Gerenciar Biblioteca| D[Adicionar Jogos]
+        A -->|Visualizar Coleção| E[Listar Jogos]
+        E -->|Filtrar| F[Buscar por Título]
+        E -->|Ordenar| G[Ordenar por Nome]
+    end

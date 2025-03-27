@@ -5,7 +5,7 @@ import alugueis.Gamer
 
 fun main() {
 
-    val gamer = Gamer("Tulio", "email@server", "17/06/1992", "meuUser")
+    val gamer = Gamer("Tulio", "email@server.com", "17/06/1992", "meuUser")
 
     println(gamer.toString())
 
