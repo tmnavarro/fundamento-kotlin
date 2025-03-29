@@ -1,6 +1,6 @@
 package alugueis
 
-class PlanoAssinatura(tipo: String, val mensalidade: Double, val jogosIncluidos: Int): Plano(tipo) {
+class PlanoAssinatura(tipo: String, val mensalidade: Double, val jogosIncluidos: Int, val valorDesconto: Double): Plano(tipo) {
 
     override fun obterValor(aluguel: Aluguel): Double {
         val totalJogoMes = aluguel.gamer.jogosDoMes(aluguel.periodo.dataInicial.monthValue).size + 1
@@ -8,7 +8,11 @@ class PlanoAssinatura(tipo: String, val mensalidade: Double, val jogosIncluidos:
         return if (totalJogoMes <= jogosIncluidos) {
             0.0
         }else {
-            super.obterValor(aluguel)
+            return if(aluguel.gamer.media > 0) {
+                super.obterValor(aluguel) - (super.obterValor(aluguel) * valorDesconto)
+            } else {
+                super.obterValor(aluguel)
+            }
         }
 
     }

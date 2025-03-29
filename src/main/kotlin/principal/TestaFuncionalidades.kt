@@ -2,7 +2,10 @@ package principal
 
 import alugueis.Periodo
 import alugueis.PlanoAssinatura
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import servicos.ConsumoApi
+import java.io.File
 import java.time.LocalDate
 
 fun main() {
@@ -24,12 +27,29 @@ fun main() {
 
 
 
-    gamer1.plano = PlanoAssinatura("PRATA", 10.0, 1)
+    gamer1.plano = PlanoAssinatura("PRATA", 10.0, 1, 0.15)
+//    gamer1.plano = PlanoAvulso("BRONZE")
+
+
+    println(gamer1)
+
+    gamer1.recomendar(10)
     gamer1.alugaJogo(jogo1, periodo1)
     gamer1.alugaJogo(jogo2, periodo2)
 //    gamer1.alugaJogo(jogo3, periodo3)
 
-    println(gamer1.jogosAlugados)
+    gamer1.recomendarJogo(jogo1, 10)
+
+    println(gamer1)
+    println(jogo1)
+
+    val gson = GsonBuilder().excludeFieldsWithoutExposeAnnotation()
 
 
+
+    val jsonSerializado = gson.create().toJson(gamer1.jogosRecomendados)
+    println(jsonSerializado)
+
+    val arquivo = File("jogosRecomendados.json")
+    arquivo.writeText(jsonSerializado)
 }

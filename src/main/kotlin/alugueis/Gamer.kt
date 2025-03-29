@@ -1,10 +1,9 @@
 package alugueis
 
-import java.time.LocalDate
 import java.util.Scanner
 import kotlin.random.Random
 
-data class Gamer(val nome: String, var email: String) {
+data class Gamer(val nome: String, var email: String): Recomendavel {
     var dataNascimento: String? = null
     var usuario: String? = null
         set(value) {
@@ -17,9 +16,24 @@ data class Gamer(val nome: String, var email: String) {
     var plano: Plano = PlanoAvulso(tipo = "BRONZE")
     val jogos = mutableListOf<Jogo?>()
     val jogosAlugados = mutableListOf<Aluguel?>()
+    val jogosRecomendados = mutableListOf<Jogo?>()
 
     var idInterno: String? = null
         private set
+
+    private val listaNotas = mutableListOf<Int>()
+    override val media: Double
+        get() = listaNotas.average()
+
+    override fun recomendar(nota: Int) {
+        listaNotas.add(nota)
+    }
+
+    fun recomendarJogo(jogo: Jogo, nota: Int) {
+        jogo.recomendar(nota)
+        jogosRecomendados.add(jogo)
+
+    }
 
     init {
         if (nome.isBlank()) {
@@ -36,7 +50,8 @@ data class Gamer(val nome: String, var email: String) {
     }
 
     override fun toString(): String {
-        return "Gamer(nome='$nome', email='$email', dataNascimento=$dataNascimento, usuario=$usuario, idInterno=$idInterno), lista de jogos: $jogosAlugados"
+        return "Gamer(nome='$nome', email='$email', dataNascimento=$dataNascimento, usuario=$usuario, idInterno=$idInterno), lista de jogos: $jogosAlugados" +
+                "\n" + "Notas: $media"
     }
 
     fun geraId() {

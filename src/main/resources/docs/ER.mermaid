@@ -1,0 +1,73 @@
+classDiagram
+    class Recomendavel {
+        <<interface>>
+        +Double media
+        +recomendar(nota: Int)
+    }
+
+    class Gamer {
+        +String nome
+        +String email
+        +String dataNascimento
+        +String usuario
+        +String idInterno
+        +List~Jogo~ jogos
+        +List~Aluguel~ jogosAlugados
+        +List~Jogo~ jogosRecomendados
+        +List~Int~ listaNotas
+        +Double media
+        +recomendar(nota)
+        +recomendarJogo(jogo, nota)
+        +alugaJogo(jogo, periodo)
+        +jogosDoMes(mes)
+    }
+
+    class Jogo {
+        +String titulo
+        +String capa
+        +String descricao
+        +Double preco
+        +List~Int~ listaNotas
+        +Double media
+        +recomendar(nota)
+    }
+
+    class Plano {
+        <<abstract>>
+        +String tipo
+        +obterValor(aluguel)*
+    }
+
+    class PlanoAssinatura {
+        +Double mensalidade
+        +Int jogosIncluidos
+        +Double valorDesconto
+        +obterValor(aluguel)
+    }
+
+    class PlanoAvulso {
+        +obterValor(aluguel)
+    }
+
+    class Aluguel {
+        +Gamer gamer
+        +Jogo jogo
+        +Periodo periodo
+        +Double valor
+    }
+
+    class Periodo {
+        +LocalDate dataInicial
+        +LocalDate dataFinal
+        +emDias()
+    }
+
+    Recomendavel <|.. Gamer : implements
+    Recomendavel <|.. Jogo : implements
+    Gamer "1" --> "*" Jogo : possui
+    Gamer "1" --> "*" Aluguel : tem
+    Gamer "1" --> "1" Plano : possui
+    Aluguel "1" --> "1" Jogo : contém
+    Aluguel "1" --> "1" Periodo : tem
+    PlanoAssinatura --|> Plano : extends
+    PlanoAvulso --|> Plano : extends
