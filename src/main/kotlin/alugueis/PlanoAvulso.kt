@@ -1,8 +1,9 @@
 package alugueis
 
 class PlanoAvulso (
-   tipo: String
-): Plano(tipo) {
+   tipo: String,
+   id: Int = 0
+): Plano(tipo, id) {
 
    override fun obterValor(aluguel: Aluguel): Double {
       val valorOriginal = super.obterValor(aluguel)

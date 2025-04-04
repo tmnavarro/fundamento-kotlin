@@ -27,7 +27,7 @@ fun main() {
 
 
 
-    gamer1.plano = PlanoAssinatura("PRATA", 10.0, 1, 0.15)
+//    gamer1.plano = PlanoAssinatura("PRATA", 10.0, 1, 0.15)
 //    gamer1.plano = PlanoAvulso("BRONZE")
 
 
